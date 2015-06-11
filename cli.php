@@ -20,14 +20,21 @@ action =
   genrand
   getticket
   replug
-  deletekey
+  deletekey (deletes saved token)
+     key=nameoftoken
   restoresaved
   clearsaved
   
 tokenid
 privid
 aeskey
+####################
+to create a new one:
+ ./yt action=genrand
+ ./yt action=save tokenname=[username]
 
+to switch token:
+ ./yt action=restoresaved key=[username]
 ";
 print($help);
 parse_str(implode('&', array_slice($argv, 1)), $_GET);
@@ -116,16 +123,17 @@ echo ("
         }
         break;
       case "deletekey":
-        if (isset($SESSION['savedtokens'][base64_decode(urldecode($_GET['key']))])) {
-          unset($SESSION['savedtokens'][base64_decode(urldecode($_GET['key']))]);
+        print_r($SESSION['savedtokens']);
+        if (isset($SESSION['savedtokens'][$_GET['key']])) {
+          unset($SESSION['savedtokens'][$_GET['key']]);
           $SESSION['errors'][] = 'Key Deleted.';
         } else {
           $SESSION['errors'][] = 'Invalid key. Can not delete.';
         }
         break;
       case "restoresaved":
-        if (isset($SESSION['savedtokens'][base64_decode(urldecode($_GET['key']))])) {
-          $SESSION['token'] = $SESSION['savedtokens'][base64_decode(urldecode($_GET['key']))];
+        if (isset($SESSION['savedtokens'][$_GET['key']])) {
+          $SESSION['token'] = $SESSION['savedtokens'][$_GET['key']];
           $SESSION['errors'][] = 'Key Restored.';
         } else {
           $SESSION['errors'][] = 'Invalid key. Can not restore.';
