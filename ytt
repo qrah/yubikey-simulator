@@ -1,0 +1,3 @@
+#!/bin/bash
+
+php cli.php action=getticket | grep ticket= | cut -d = -f2 | xclip

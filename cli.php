@@ -98,7 +98,7 @@ echo ("
 ########################################################
 ######### Your ticket  ######## ########################
 ");
-echo ($SESSION['token']->getTicket());
+echo ('ticket=' . $SESSION['token']->getTicket());
 echo ("
 "); 
 
