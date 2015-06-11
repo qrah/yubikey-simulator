@@ -155,6 +155,10 @@ echo ("
       name         |        id \n");
     foreach ($SESSION['savedtokens'] as $name=>$tkn) {
 echo $name . '           ' . $tkn->getID() . " \n"  ;
+echo "yubiserver-admin --yubikey --add  {$name} {$tkn->getID_modhex()} {$tkn->getInternalID()} {$tkn->getAESKey()} \n\n";
+
+ 
+    
     }
   }
   
@@ -170,18 +174,18 @@ echo $name . '           ' . $tkn->getID() . " \n"  ;
     echo "
 ########################################################
 ######### Internal Token Values ########################
-Token NAME:      {$SESSION['token']->getID()}
-Token ID:        {$SESSION['token']->getID()}
-AES Key:         {$SESSION['token']->getAESKey()}
-Internal ID:     {$SESSION['token']->getInternalID()}
-Usage Counter:   {$SESSION['token']->getCounter()}
-Session Counter: {$SESSION['token']->getSessionCounter()}
-Random Number:   {$SESSION['token']->getRandNum()}
-Timestamp:       {$SESSION['token']->getTimer()}
-Lock Code:       {$SESSION['token']->getLockCode()}
+Token ID:          {$SESSION['token']->getID()}
+Token ID (modhex): {$SESSION['token']->getID_modhex()}
+AES Key:           {$SESSION['token']->getAESKey()}
+Internal ID:       {$SESSION['token']->getInternalID()}
+Usage Counter:     {$SESSION['token']->getCounter()}
+Session Counter:   {$SESSION['token']->getSessionCounter()}
+Random Number:     {$SESSION['token']->getRandNum()}
+Timestamp:         {$SESSION['token']->getTimer()}
+Lock Code:         {$SESSION['token']->getLockCode()}
 
 to import:
-yubiserver-admin --yubikey --add  [username] {$SESSION['token']->getID()} {$SESSION['token']->getInternalID()} {$SESSION['token']->getAESKey()}
+yubiserver-admin --yubikey --add  [username] {$SESSION['token']->getID_modhex()} {$SESSION['token']->getInternalID()} {$SESSION['token']->getAESKey()}
 
 ";
   }

@@ -149,6 +149,10 @@ class Token {
       return $this->_tokenid;
     }
 
+    public function getID_modhex() {
+      return $this->hex2modhex($this->_tokenid);
+    }
+
     public function setInternalID($iid) {
       if (!preg_match("/^[0-9a-f]{12}$/", $iid)) {
         throw new Exception('Invalid Internal ID');
